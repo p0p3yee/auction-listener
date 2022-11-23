@@ -18,8 +18,8 @@ Program for monitoring the latest auction info of [Cosmos-Auction-Blockchain](ht
 auction-listener    cosmos-auction-blockchain
 ```
 
-Run the program
+### Run the program
 
 ```
-go run main.go`
+go run main.go
 ```
