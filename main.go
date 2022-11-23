@@ -70,19 +70,22 @@ func main() {
 		log.Fatal(err)
 	}
 
-	bids_resp, err := queryClient.Bids(context.Background(), &types.QueryBidsRequest{})
+	bidsResp, err := queryClient.Bids(context.Background(), &types.QueryBidsRequest{})
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	allAuctions := resp.GetAuction()
-	allBids := bids_resp.GetBid()
+	allBids := bidsResp.GetBid()
 
 	currentMaxBid := make(map[uint64]types.Bid)
 	auctionMap := make(map[uint64]types.Auction)
 	auctionMaxId := uint64(len(allAuctions))
 
 	for _, auction := range allAuctions {
+		if auction.Ended {
+			continue
+		}
 		auctionMap[auction.Id] = *auction
 		if auction.HighestBidExists {
 			currentMaxBid[auction.Id] = *allBids[auction.CurrentHighestBidId]
